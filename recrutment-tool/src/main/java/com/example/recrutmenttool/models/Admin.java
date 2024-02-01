@@ -1,6 +1,5 @@
 package com.example.recrutmenttool.models;
 
-import com.example.recrutmenttool.Enum.accountStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,30 +11,24 @@ import java.util.ArrayList;
 @Entity
 @Table
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class User {
+public class Admin {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
     private String email;
-    private String password;
-    private String organization;
-
-    @Enumerated (value = EnumType.STRING)
-    private accountStatus accountStatus;
+    private  String password;
 
 
+    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
+    private ArrayList<User> userArrayList  =new ArrayList<>();
 
-    @JoinColumn
-    @ManyToOne
-    private Admin admin;
-
-
-
+    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
+    private ArrayList<Client> clientArrayList = new ArrayList<Client>();
 
 
 
