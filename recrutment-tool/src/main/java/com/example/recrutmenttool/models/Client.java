@@ -23,4 +23,9 @@ public class Client {
     private String password;
 
 
+    @JoinColumn
+    @ManyToOne
+    private Admin admin;
+
+
 }
