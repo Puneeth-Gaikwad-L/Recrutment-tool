@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "User")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,9 +36,12 @@ public class User {
 
 
 
-    @JoinColumn
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
     private Admin admin;
+
+
+
 
 
 

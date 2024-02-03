@@ -22,10 +22,10 @@ public class Client {
     private String email;
     private String password;
 
-
-    @JoinColumn
-    @ManyToOne
-    private Admin admin;
+//
+//    @JoinColumn
+//    @ManyToOne
+//    private Admin admin;
 
 
 }
