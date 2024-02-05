@@ -21,7 +21,7 @@ public class Admin {
     private Integer id;
     private String username;
     private String email;
-    private  String password;
+    private String password;
 
 
     @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
