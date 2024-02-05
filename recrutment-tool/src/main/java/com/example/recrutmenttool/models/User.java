@@ -1,16 +1,14 @@
 package com.example.recrutmenttool.models;
 
-import com.example.recrutmenttool.Enum.accountStatus;
+import com.example.recrutmenttool.Enum.AccountStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Entity
-@Table
+@Table(name = "User")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,19 +18,30 @@ public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false,unique = true)
     private String username;
-    private String email;
+
+    @Column(nullable = false,unique = true)
+    private String emailId;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String organization;
 
     @Enumerated (value = EnumType.STRING)
-    private accountStatus accountStatus;
+    private AccountStatus accountStatus;
 
 
 
-    @JoinColumn
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
     private Admin admin;
+
+
+
 
 
 

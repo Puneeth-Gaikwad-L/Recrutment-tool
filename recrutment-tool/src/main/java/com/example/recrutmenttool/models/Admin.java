@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "Admin")
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,20 +19,19 @@ public class Admin {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(unique = true,nullable = false)
     private String username;
+
+    @Column(unique = true,nullable =false)
     private String email;
-    private String password;
 
 
-    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
-    private ArrayList<User> userArrayList  =new ArrayList<>();
-
-    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
-    private ArrayList<Client> clientArrayList = new ArrayList<Client>();
+    @Column(nullable = false)
+    private  String password;
 
 
-
-
-
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<User> userArrayList; // Changed from ArrayList<User> to List<User>
 
 }

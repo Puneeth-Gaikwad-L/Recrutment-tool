@@ -1,8 +1,8 @@
 package com.example.recrutmenttool.Enum;
 
-public enum accountStatus {
+public enum AccountStatus {
 
     PENDING,
-    APPROVED,
+    ACTIVE,
    INACTIVE
 }
