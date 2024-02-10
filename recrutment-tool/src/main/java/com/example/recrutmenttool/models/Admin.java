@@ -26,8 +26,10 @@ public class Admin {
     @Column(unique = true,nullable =false)
     private String email;
 
+
     @Column(nullable = false)
     private  String password;
+
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<User> userArrayList; // Changed from ArrayList<User> to List<User>
