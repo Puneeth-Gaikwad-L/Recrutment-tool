@@ -16,6 +16,7 @@ public class UserTransformer {
 //                .password(setPassword(userRequestDto.getPassword()))
                 .organization(userRequestDto.getOrganization())
                 .accountStatus(AccountStatus.valueOf("PENDING"))
+                .securityQuestion(userRequestDto.getSecurityQuestion())
                 .build();
 
         return user;

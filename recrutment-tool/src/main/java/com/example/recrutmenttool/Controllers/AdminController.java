@@ -20,17 +20,19 @@ public class AdminController {
     private AdminService adminService;
 
 
-    @PostMapping("/addAdmin")
+    @PostMapping("/createAdmin")
     public ResponseEntity registerAdmin(@RequestBody AdminRequestDto adminRequestDto)throws Exception{
         try{
             AdminResponseDto Result = adminService.addAdmin(adminRequestDto);
-            return new ResponseEntity(Result,HttpStatus.ACCEPTED);
+            return new ResponseEntity(Result, HttpStatus.ACCEPTED);
         }
         catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
     }
+
+
 
     @GetMapping("/getUserByUserName/{username}")
     public ResponseEntity getUserByUserName(@PathVariable String username) throws Exception{

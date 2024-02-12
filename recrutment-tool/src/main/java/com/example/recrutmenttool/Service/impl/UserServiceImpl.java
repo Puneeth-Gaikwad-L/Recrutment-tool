@@ -6,12 +6,10 @@ import com.example.recrutmenttool.Repositories.AdminRepository;
 import com.example.recrutmenttool.Repositories.UserRepository;
 import com.example.recrutmenttool.Service.UserService;
 import com.example.recrutmenttool.Transformers.UserTransformer;
+import com.example.recrutmenttool.dto.requestDto.ResetDto;
 import com.example.recrutmenttool.dto.requestDto.UserRequestDto;
 import com.example.recrutmenttool.dto.responseDto.UserResponseDto;
-import com.example.recrutmenttool.exceptions.EmailAlreadyPresent;
-import com.example.recrutmenttool.exceptions.InvalidAccountStatusException;
-import com.example.recrutmenttool.exceptions.InvalidUserNameException;
-import com.example.recrutmenttool.exceptions.UserExistsException;
+import com.example.recrutmenttool.exceptions.*;
 import com.example.recrutmenttool.models.Admin;
 import com.example.recrutmenttool.models.Client;
 import com.example.recrutmenttool.models.User;
@@ -36,24 +34,24 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto addUser(UserRequestDto userRequestDto) throws Exception {
 
 
-//        checking username is that already present or not
+       //checking username is that already present or not
         Optional<User> optionalUser = userRepository.findByUsername(userRequestDto.getUsername());
         if(optionalUser.isPresent()){
             throw new UserExistsException("This user name is not valid");
         }
 
-//        checking emailId is that already present or not
+        // checking emailId is that already present or not
         User checkEmailId = userRepository.findByEmailId(userRequestDto.getEmail());
         if(checkEmailId!=null){
             throw new EmailAlreadyPresent("This email is already present");
         }
 
 
-//        extracting user
+       //extracting user
         User user = UserTransformer.ConvertEntity(userRequestDto);
 
 
-//        saving userList for Admin
+       // saving userList for Admin
         Optional<Admin> optionalAdmin=adminRepository.findById(1);
         Admin admin=optionalAdmin.get();
         user.setAdmin(admin);
@@ -64,10 +62,10 @@ public class UserServiceImpl implements UserService {
         }
         users.add(user);
 
-//        Saving user in DataBase
+       //Saving user in DataBase
         userRepository.save(user);
 
-//        transforming from user to responseDto
+       //transforming from user to responseDto
         UserResponseDto responseDto = UserTransformer.userToUserResponseDto(user);
 
         return responseDto;
@@ -117,6 +115,24 @@ public class UserServiceImpl implements UserService {
 
         userRepository.delete(user);
         return "User is deleted successfully";
+    }
+
+    @Override
+    public String changePassword(ResetDto resetDto) throws Exception {
+        Optional<User> optionalUser = userRepository.findByUsername(resetDto.getUsername());
+        if(!optionalUser.isPresent()){
+            throw new UserNotPresentException("user not found");
+        }
+
+        User user = optionalUser.get();
+        if(!user.getSecurityQuestion().equals(resetDto.getSecurityQuestions())){
+            throw new NotMatchedException("this Security question are not same");
+        }
+        user.setPassword(resetDto.getNewPassword());
+        userRepository.save(user);
+
+
+        return "your password updated";
     }
 
 //    @Override
