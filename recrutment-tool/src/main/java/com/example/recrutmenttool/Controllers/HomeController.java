@@ -49,19 +49,7 @@ public class HomeController {
 
 
 
-    @PostMapping("/registerUser")
-    public ResponseEntity userRegistration(@RequestBody UserRequestDto userRequestDto) throws Exception{
 
-        try {
-            UserResponseDto result = userService.addUser(userRequestDto);
-            return new ResponseEntity(result,HttpStatus.OK);
-
-        }
-        catch (Exception e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-    }
 
 
     @PostMapping
