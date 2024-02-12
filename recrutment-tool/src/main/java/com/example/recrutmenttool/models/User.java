@@ -51,6 +51,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
+     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<Documents> documentsList=new ArrayList<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
