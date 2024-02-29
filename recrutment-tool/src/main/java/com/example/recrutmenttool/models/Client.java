@@ -18,14 +18,20 @@ public class Client {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true,nullable = false)
     private String username;
+
+    @Column(unique = true,nullable = false)
     private String email;
+
+    @Column(unique = true,nullable = false)
     private String password;
 
-//
-//    @JoinColumn
-//    @ManyToOne
-//    private Admin admin;
+    @Column(unique = true,nullable = false)
+    private String organization;
+
+
+
 
 
 }

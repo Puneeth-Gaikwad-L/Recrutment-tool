@@ -23,6 +23,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
+
+    @PostMapping("/registerUser")
+    public ResponseEntity userRegistration(@RequestBody UserRequestDto userRequestDto) throws Exception{
+
+        try {
+            UserResponseDto result = userService.addUser(userRequestDto);
+            return new ResponseEntity(result,HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
     @PutMapping("/updateFields/{username}")
     public ResponseEntity updateFields(@PathVariable String username, @RequestBody UserRequestDto userRequestDto){
 
