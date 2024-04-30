@@ -22,8 +22,6 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer documentId;
 
-    private String userId;
-
     @Enumerated (value = EnumType.STRING)
     private FileType fileType;
 

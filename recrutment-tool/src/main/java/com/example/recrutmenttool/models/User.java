@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -52,7 +54,7 @@ public class User implements UserDetails {
     private Admin admin;
 
      @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    List<Documents> documentsList=new ArrayList<>();
+     List<Documents> documentsList=new ArrayList<>();
 
 
     @Override
